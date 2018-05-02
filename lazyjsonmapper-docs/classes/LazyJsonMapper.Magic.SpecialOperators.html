@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>LazyJsonMapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">LazyJsonMapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/LazyJsonMapper.html">\LazyJsonMapper</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">21</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1889632304"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1889632304" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1475952078"></a>
+                                <a href="../namespaces/LazyJsonMapper.html" style="margin-left: 30px; padding-left: 0">LazyJsonMapper</a>
+            </div>
+            <div id="namespace-1475952078" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1949689431"></a>
+                                <a href="../namespaces/LazyJsonMapper.Exception.html" style="margin-left: 30px; padding-left: 0">Exception</a>
+            </div>
+            <div id="namespace-1949689431" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.BadPropertyDefinitionException.html">BadPropertyDefinitionException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.BadPropertyMapException.html">BadPropertyMapException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.CircularPropertyMapException.html">CircularPropertyMapException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.LazyJsonMapperException.html">LazyJsonMapperException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.LazySerializationException.html">LazySerializationException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.LazyUserException.html">LazyUserException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.LazyUserOptionException.html">LazyUserOptionException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.MagicTranslationException.html">MagicTranslationException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.SpanishInquisitionException.html">SpanishInquisitionException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-457872790"></a>
+                                <a href="../namespaces/LazyJsonMapper.Export.html" style="margin-left: 30px; padding-left: 0">Export</a>
+            </div>
+            <div id="namespace-457872790" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/LazyJsonMapper.Export.ClassAnalysis.html">ClassAnalysis</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Export.PropertyDescription.html">PropertyDescription</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1482455815"></a>
+                                <a href="../namespaces/LazyJsonMapper.Magic.html" style="margin-left: 30px; padding-left: 0">Magic</a>
+            </div>
+            <div id="namespace-1482455815" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/LazyJsonMapper.Magic.FunctionTranslation.html">FunctionTranslation</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Magic.PropertyTranslation.html">PropertyTranslation</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Magic.SpecialOperators.html">SpecialOperators</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-299969475"></a>
+                                <a href="../namespaces/LazyJsonMapper.Property.html" style="margin-left: 30px; padding-left: 0">Property</a>
+            </div>
+            <div id="namespace-299969475" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/LazyJsonMapper.Property.PropertyDefinition.html">PropertyDefinition</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Property.PropertyMapCache.html">PropertyMapCache</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html">PropertyMapCompiler</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Property.UndefinedProperty.html">UndefinedProperty</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Property.ValueConverter.html">ValueConverter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/LazyJsonMapper.LazyJsonMapper.html">LazyJsonMapper</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Utilities.html">Utilities</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/LazyJsonMapper.Magic.html">\LazyJsonMapper\Magic</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\LazyJsonMapper\Magic</small>SpecialOperators</h1>
+                    <p><em>Compatibility translation layer for illegal operator characters.</em></p>
+                    <p>Takes care of encoding/decoding illegal characters (special PHP operators)
+in JSON property names, to ensure that the resulting function name is legal.</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/LazyJsonMapper.Magic.SpecialOperators.html#method_encodeOperators" class="">encodeOperators()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Magic.SpecialOperators.html#method_decodeOperators" class="">decodeOperators()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/LazyJsonMapper.Magic.SpecialOperators.html#method__buildTranslations" class="">_buildTranslations()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/LazyJsonMapper.Magic.SpecialOperators.html#property__translations" class="">$_translations</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Magic.SpecialOperators.html"><div class="path-wrapper">Magic/SpecialOperators.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\LazyJsonMapper\Magic\SpecialOperators</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                                            <dt>See also</dt>
+                                                                                        <dd><a href="../classes/LazyJsonMapper.Magic.FunctionTranslation.html"><span class="namespace-wrapper">\LazyJsonMapper\Magic\FunctionTranslation</span></a></dd>
+                                                            <dd><a href="../classes/LazyJsonMapper.Magic.PropertyTranslation.html"><span class="namespace-wrapper">\LazyJsonMapper\Magic\PropertyTranslation</span></a></dd>
+                                                    
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                copyright
+                            </th>
+                            <td>
+                                                                    <p>2017 The LazyJsonMapper Project</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                license
+                            </th>
+                            <td>
+                                                                    <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>SteveJobzniak (<a href="https://github.com/SteveJobzniak">https://github.com/SteveJobzniak</a>)</p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__translations" name="property__translations" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_translations</h3>
+                <pre class="signature">$_translations : array|null</pre>
+                <p><em>Table of special operator translations.</em></p>
+                
+
+                                <h4>Type</h4>
+                array|null
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_encodeOperators" name="method_encodeOperators" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">encodeOperators()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">encodeOperators(string  <span class="argument">$str</span>) : string</pre>
+                <p><em>Encode special operators.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$str </td>
+                                <td><p>Input string.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Output string.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_decodeOperators" name="method_decodeOperators" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">decodeOperators()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">decodeOperators(string  <span class="argument">$str</span>) : string</pre>
+                <p><em>Decode special operators.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$str </td>
+                                <td><p>Input string.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>Output string.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__buildTranslations" name="method__buildTranslations" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_buildTranslations()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_buildTranslations() </pre>
+                <p><em>Build the table of special operator translations.</em></p>
+                <p>PHP doesn't allow these special operators in function names, so we cannot
+legally generate such function names. Instead, we'll encode the operators
+with a sequence that will never appear in our normal algorithm's output.</p>
+<p>For example, if the user has a property named <code>en-US</code>, our special
+operator translation will give it a function name of <code>getEn_x2D_US()</code>
+to safely encode the arithmetic minus symbol.</p>
+<p>This encoding scheme was deliberately chosen thanks to the fact that it
+will never conflict with anything else that's legitimately generated by
+our algorithm. Because if the user has a property that's <em>actually</em> named
+<code>en_x2D_US</code>, then that one would be encoded as <code>getEnX2D_US()</code> (by the
+main <code>PropertyTranslation</code> algorithm), which is obviously not the same
+thing and will never confuse our parser in decoding later. And if they
+sent us <code>en__x2D_US</code>, it would be encoded as <code>getEn_X2D_US()</code>, which is
+yet again different (the <code>X</code> is uppercase in that situation too).</p>
+<p>Therefore, our special encoding of <code>_x[HEX]_</code> will never be generated by
+any legitimate user property names, even if those names do contain that
+sequence on-disk. They'll all be encoded to something else. The only
+thing that can put a lowercase <code>x</code> in this particular arrangement is our
+own operator symbol translator here.</p>
+<p>As for why we need that long sequence instead of something shorter, it's
+unfortunately the only way that we can guarantee uniqueness. It relies on
+the principle that <code>_x</code> in the user's own properties would ALWAYS be
+encoded as <code>X</code>. Most programmers are familiar with hex codes and will
+recognize the sequences we've chosen: <code>getEn_x2D_US()</code>, where <code>x</code> stands
+for &quot;hex&quot;, and <code>2D</code> is the hex character value for the minus symbol.</p>
+<p>This particular encoding also allows us to easily encode future illegal
+characters of any length (even multiple bytes such as <code>_xFFFF_</code> if ever
+necessary) without needing to change the encoding scheme again.</p>
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">SpecialOperators.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Magic/SpecialOperators.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/LazyJsonMapper.html">\LazyJsonMapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 1st, 2017 at 21:10.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

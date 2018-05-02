@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>LazyJsonMapper</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">LazyJsonMapper</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/LazyJsonMapper.html">\LazyJsonMapper</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">21</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1210139251"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1210139251" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-887370110"></a>
+                                <a href="../namespaces/LazyJsonMapper.html" style="margin-left: 30px; padding-left: 0">LazyJsonMapper</a>
+            </div>
+            <div id="namespace-887370110" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1424283236"></a>
+                                <a href="../namespaces/LazyJsonMapper.Exception.html" style="margin-left: 30px; padding-left: 0">Exception</a>
+            </div>
+            <div id="namespace-1424283236" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.BadPropertyDefinitionException.html">BadPropertyDefinitionException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.BadPropertyMapException.html">BadPropertyMapException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.CircularPropertyMapException.html">CircularPropertyMapException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.LazyJsonMapperException.html">LazyJsonMapperException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.LazySerializationException.html">LazySerializationException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.LazyUserException.html">LazyUserException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.LazyUserOptionException.html">LazyUserOptionException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.MagicTranslationException.html">MagicTranslationException</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Exception.SpanishInquisitionException.html">SpanishInquisitionException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-424875231"></a>
+                                <a href="../namespaces/LazyJsonMapper.Export.html" style="margin-left: 30px; padding-left: 0">Export</a>
+            </div>
+            <div id="namespace-424875231" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/LazyJsonMapper.Export.ClassAnalysis.html">ClassAnalysis</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Export.PropertyDescription.html">PropertyDescription</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1401745987"></a>
+                                <a href="../namespaces/LazyJsonMapper.Magic.html" style="margin-left: 30px; padding-left: 0">Magic</a>
+            </div>
+            <div id="namespace-1401745987" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/LazyJsonMapper.Magic.FunctionTranslation.html">FunctionTranslation</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Magic.PropertyTranslation.html">PropertyTranslation</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Magic.SpecialOperators.html">SpecialOperators</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2041498538"></a>
+                                <a href="../namespaces/LazyJsonMapper.Property.html" style="margin-left: 30px; padding-left: 0">Property</a>
+            </div>
+            <div id="namespace-2041498538" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/LazyJsonMapper.Property.PropertyDefinition.html">PropertyDefinition</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Property.PropertyMapCache.html">PropertyMapCache</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html">PropertyMapCompiler</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Property.UndefinedProperty.html">UndefinedProperty</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Property.ValueConverter.html">ValueConverter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/LazyJsonMapper.LazyJsonMapper.html">LazyJsonMapper</a></li>
+                                                    <li class="class"><a href="../classes/LazyJsonMapper.Utilities.html">Utilities</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/LazyJsonMapper.Property.html">\LazyJsonMapper\Property</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\LazyJsonMapper\Property</small>PropertyMapCompiler</h1>
+                    <p><em>Compiles a class property map into object form.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method_compileClassPropertyMap" class="">compileClassPropertyMap()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method_compile" class="">compile()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property_compiledClasses" class="">$compiledClasses</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property_uncompiledPropertyClasses" class="">$uncompiledPropertyClasses</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method__compile" class="">_compile()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method__reflectSolveClassHierarchy" class="">_reflectSolveClassHierarchy()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method__checkCurrentLocks" class="">_checkCurrentLocks()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method__lockUncompiledClasses" class="">_lockUncompiledClasses()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method__processCurrentClass" class="">_processCurrentClass()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method__processPropertyMapEntry" class="">_processPropertyMapEntry()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method__processPropertyDefinitionString" class="">_processPropertyDefinitionString()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method__importClassMap" class="">_importClassMap()</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method__subcompile" class="">_subcompile()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property__isRootCompiler" class="">$_isRootCompiler</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property__propertyMapCache" class="">$_propertyMapCache</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property__solveClassName" class="">$_solveClassName</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property__strictSolveClassName" class="">$_strictSolveClassName</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property__classHierarchy" class="">$_classHierarchy</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property__ourCompilerClassLocks" class="">$_ourCompilerClassLocks</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property__previousMapConstantValue" class="">$_previousMapConstantValue</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property__currentClassInfo" class="">$_currentClassInfo</a><br />
+                                                                    <a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#property__currentClassPropertyMap" class="">$_currentClassPropertyMap</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/Property.PropertyMapCompiler.html"><div class="path-wrapper">Property/PropertyMapCompiler.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\LazyJsonMapper\Property\PropertyMapCompiler</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                copyright
+                            </th>
+                            <td>
+                                                                    <p>2017 The LazyJsonMapper Project</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                license
+                            </th>
+                            <td>
+                                                                    <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>SteveJobzniak (<a href="https://github.com/SteveJobzniak">https://github.com/SteveJobzniak</a>)</p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_compiledClasses" name="property_compiledClasses" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$compiledClasses</h3>
+                <pre class="signature">$compiledClasses : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; All classes that were compiled by us or our sub-compilers.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_uncompiledPropertyClasses" name="property_uncompiledPropertyClasses" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$uncompiledPropertyClasses</h3>
+                <pre class="signature">$uncompiledPropertyClasses : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; Uncompiled classes seen in properties by us or our sub-compilers.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__isRootCompiler" name="property__isRootCompiler" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_isRootCompiler</h3>
+                <pre class="signature">$_isRootCompiler : boolean</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                &mdash; Whether this is the root-level compiler or a sub-compiler.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__propertyMapCache" name="property__propertyMapCache" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_propertyMapCache</h3>
+                <pre class="signature">$_propertyMapCache : \LazyJsonMapper\Property\PropertyMapCache</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/LazyJsonMapper.Property.PropertyMapCache.html">\LazyJsonMapper\Property\PropertyMapCache</a>
+                &mdash; The cache used by root and all sub-compilers.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__solveClassName" name="property__solveClassName" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_solveClassName</h3>
+                <pre class="signature">$_solveClassName : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; Path of the solve-class, without leading backslash.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__strictSolveClassName" name="property__strictSolveClassName" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_strictSolveClassName</h3>
+                <pre class="signature">$_strictSolveClassName : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; Strict global path (with leading backslash) to solve-class.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__classHierarchy" name="property__classHierarchy" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_classHierarchy</h3>
+                <pre class="signature">$_classHierarchy : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; The reflected class hierarchy for the solve-class.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__ourCompilerClassLocks" name="property__ourCompilerClassLocks" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_ourCompilerClassLocks</h3>
+                <pre class="signature">$_ourCompilerClassLocks : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; Classes that WE have locked during hierarchy compilation.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__previousMapConstantValue" name="property__previousMapConstantValue" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_previousMapConstantValue</h3>
+                <pre class="signature">$_previousMapConstantValue : mixed</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                mixed
+                &mdash; Used by old PHP (before 7.1) for detecting unique (non-inherited) class constants.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__currentClassInfo" name="property__currentClassInfo" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_currentClassInfo</h3>
+                <pre class="signature">$_currentClassInfo : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; The current class we&#039;re processing in the hierarchy.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property__currentClassPropertyMap" name="property__currentClassPropertyMap" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$_currentClassPropertyMap</h3>
+                <pre class="signature">$_currentClassPropertyMap : array</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                &mdash; Holds current class&#039; property map as it&#039;s being built.                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_compileClassPropertyMap" name="method_compileClassPropertyMap" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">compileClassPropertyMap()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">compileClassPropertyMap(\LazyJsonMapper\Property\PropertyMapCache  <span class="argument">$propertyMapCache</span>, string  <span class="argument">$solveClassName</span>) </pre>
+                <p><em>Compiles the JSON property map for a class (incl. class inheritance).</em></p>
+                <p>Parses the entire chain of own, inherited and imported JSON property maps
+for the given class, and validates all definitions in the entire map.</p>
+<p>Each class definition is only resolved and parsed a single time; the
+first time we encounter it. From then on, it is stored in the cache so
+that object creations can instantly link to their compiled map. And so
+any other classes which rely on that class can instantly re-use its map.</p>
+<p>And all maps are built hierarchically, starting with their base class.
+Every sub-object which extends that object re-uses its parent's compiled
+PropertyDefinition objects, to reduce the memory requirements even more.
+The same is true for any imported maps via the import mechanism.</p>
+<p>As an additional layer of protection, ALL properties (in the current
+class and its extends/import-hierarchy) that point to uncompiled classes
+will ALSO be verified and compiled, to ensure that THEIR class property
+maps compile successfully. And it will happen recursively until all
+linked classes (inheritance, imports and property links) have been fully
+compiled throughout the entire linked hierarchy. It ensures that users
+will be able to FULLY trust that EVERY property in their class and its
+ENTIRE tree of related classes are pointing at classes that have been
+successfully compiled and are known to work and are ready for reliable
+use at runtime.</p>
+<p>That extra protection does however also mean that your runtime's initial
+compile-calls will take the longest, since they'll spider-crawl the
+ENTIRE hierarchy of extends, imports, and ALL properties of each, and
+then ALL extends and imports and properties of the classes pointed to by
+those properties, and so on... But despite all of that extra work, it's
+STILL blazingly FAST at compiling, and the extra security is well worth
+it! And as soon as all relevant maps are compiled during your current
+runtime, this function won't have to do any work anymore! Then you can
+just relax and fully trust that all of your class maps are perfect! :-)</p>
+<p>If there are ANY compilation problems, then an automatic rollback takes
+place which restores the <code>PropertyMapCache</code> to its original pre-call
+state.</p>
+<p>This compiler algorithm provides perfect peace of mind. If it doesn't
+throw any errors, it means that your entire class hierarchy has been
+compiled and is ready for use in your cache!</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/LazyJsonMapper.Property.PropertyMapCache.html">\LazyJsonMapper\Property\PropertyMapCache</a></td>
+                                <td>$propertyMapCache </td>
+                                <td><p>The cache to use for storage
+and lookups. Will be written to.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$solveClassName </td>
+                                <td><p>The full path of the class to
+compile, but without any
+leading <code>\</code> global prefix. To
+save time, we assume the caller
+has already verified that it is
+a valid <code>LazyJsonMapper</code> class.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyDefinitionException</dt>
+                            <dd><p>If there is a problem with any of
+the property definitions.</p></dd>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyMapException</dt>
+                            <dd><p>If there is a problem with the
+map structure itself.</p></dd>
+                                                    <dt>\LazyJsonMapper\Exception\CircularPropertyMapException</dt>
+                            <dd><p>If there are bad circular map
+imports within either the class
+hierarchy (parents) or the imports
+of any part of the class you're
+trying to compile. This is a
+serious exception!</p></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_compile" name="method_compile" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">compile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">compile() </pre>
+                <p><em>Compile the solve-class, and its parent/import hierarchy (as-necessary).</em></p>
+                <p>Intelligently watches for compilation errors, and if so it performs an
+auto-rollback of ALL classes compiled by this <code>compile()</code>-call AND by all
+of its recursive sub-compilations (if any took place).</p>
+<p>It performs the rollback if there were ANY issues with the solve-class or
+ANY part of its inheritance hierarchy (extends/imports) OR with the final
+post-processing compilation of all of the classes that THEIR properties
+were pointing at. And note that the post-processing is ALSO recursive and
+will FULLY validate the entire hierarchies and property trees of ALL
+classes that IT compiles, and so on... until no more work remains.</p>
+<p>So if this function DOESN'T throw, then you can TRUST that the ENTIRE
+hierarchy of property maps related to the requested solve-class has been
+compiled. However, note that their final PROPERTY CLASS compilation step
+and final success-validation doesn't happen until the top-level
+rootCompiler is reached again, since it's the job of the root to handle
+the recursive compilation and resolving of all classes encountered in
+properties. So it's only the rootCompiler's <code>compile()</code>-call that TRULY
+matters and will determine whether EVERYTHING was successful or not.</p>
+<p>Basically: If we fail ANY aspect of the request to compile, then we'll
+FULLY roll back everything that we've changed during our processing.
+Which safely guarantees that the FINAL map compilation cache ONLY
+contains fully verified and trustable classes and their COMPLETE class
+inheritance and property hierarchies!</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyDefinitionException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyMapException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\CircularPropertyMapException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method_compileClassPropertyMap"><span class="namespace-wrapper">The public, static
+                                                    class entry point.</span></a></dd>
+                                            <dd><a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method__compile"><span class="namespace-wrapper">The internal compiler
+                                                    core.</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(boolean  <span class="argument">$isRootCompiler</span>, \LazyJsonMapper\Property\PropertyMapCache  <span class="argument">$propertyMapCache</span>, string  <span class="argument">$solveClassName</span>) </pre>
+                <p><em>Private Constructor.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$isRootCompiler </td>
+                                <td><p>Whether this is the root-level
+compiler in a compile-stack.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td><a href="../classes/LazyJsonMapper.Property.PropertyMapCache.html">\LazyJsonMapper\Property\PropertyMapCache</a></td>
+                                <td>$propertyMapCache </td>
+                                <td><p>The class/lock cache to use.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$solveClassName </td>
+                                <td><p>The full path of the class to
+compile, but without any
+leading <code>\</code> global prefix. To
+save time, we assume the caller
+has already verified that it is
+a valid <code>LazyJsonMapper</code> class.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyMapException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__compile" name="method__compile" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_compile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_compile() </pre>
+                <p><em>The real, internal compiler algorithm entry point.</em></p>
+                <p>MUST be wrapped in another function which handles compilation failures!</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyDefinitionException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyMapException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\CircularPropertyMapException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                                            <dt>See also</dt>
+                                                                <dd><a href="../classes/LazyJsonMapper.Property.PropertyMapCompiler.html#method_compile"><span class="namespace-wrapper">The wrapper entry point.</span></a></dd>
+                                                                </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__reflectSolveClassHierarchy" name="method__reflectSolveClassHierarchy" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_reflectSolveClassHierarchy()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_reflectSolveClassHierarchy() </pre>
+                <p><em>Reflect all classes in the solve-class hierarchy.</em></p>
+                <p>Builds a list of all classes in the inheritance chain, with the
+base-level class as the first element, and the solve-class as the
+last element. (The order is important!)</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyMapException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__checkCurrentLocks" name="method__checkCurrentLocks" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_checkCurrentLocks()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_checkCurrentLocks() </pre>
+                <p><em>Check for already-locked classes in the solve-class hierarchy.</em></p>
+                <p>Analyzes the solve-class hierarchy and verifies that we don't violate
+any current anti-circular map locks.</p>
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\CircularPropertyMapException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__lockUncompiledClasses" name="method__lockUncompiledClasses" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_lockUncompiledClasses()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_lockUncompiledClasses() </pre>
+                <p><em>Lock all uncompiled classes in the solve-class hierarchy.</em></p>
+                
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyMapException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__processCurrentClass" name="method__processCurrentClass" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_processCurrentClass()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_processCurrentClass() </pre>
+                <p><em>Process the current class in the solve-class hierarchy.</em></p>
+                
+
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyDefinitionException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyMapException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\CircularPropertyMapException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__processPropertyMapEntry" name="method__processPropertyMapEntry" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_processPropertyMapEntry()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_processPropertyMapEntry(string|integer  <span class="argument">$propName</span>, mixed  <span class="argument">$propDefStr</span>) </pre>
+                <p><em>Process a property map entry for the current class.</em></p>
+                <p>Validates and compiles a map entry, and merges it with the current class
+property map if everything went okay and the entry was new/different.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string|integer</td>
+                                <td>$propName </td>
+                                <td><p>The property name, or a numeric array key.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$propDefStr </td>
+                                <td><p>Should be a string describing the property
+or the class to import, but may be
+something else if the user has written an
+invalid class property map.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyDefinitionException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyMapException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\CircularPropertyMapException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__processPropertyDefinitionString" name="method__processPropertyDefinitionString" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_processPropertyDefinitionString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_processPropertyDefinitionString(string  <span class="argument">$propName</span>, string  <span class="argument">$propDefStr</span>) </pre>
+                <p><em>Compile a property definition string and add it to the current class.</em></p>
+                <p>Attempts to compile the definition, and then appends it to the current
+class' final compiled map, IF the definition is valid and describes a
+new/different value compared to what's already in the current class map.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$propName </td>
+                                <td><p>The property name.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$propDefStr </td>
+                                <td><p>A string describing the property.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyDefinitionException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__importClassMap" name="method__importClassMap" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_importClassMap()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_importClassMap(string  <span class="argument">$strictImportClassName</span>) </pre>
+                <p><em>Import another class map into the current class.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$strictImportClassName </td>
+                                <td><p>The strict, global path to the
+class, with leading backslash <code>\</code>.
+To save time, we assume the caller
+has already verified that it is a
+valid <code>LazyJsonMapper</code> class.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyDefinitionException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyMapException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\CircularPropertyMapException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method__subcompile" name="method__subcompile" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">_subcompile()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">_subcompile(string  <span class="argument">$className</span>) </pre>
+                <p><em>Used internally when this compiler needs to run a sub-compilation.</em></p>
+                <p>Performs the sub-compile. And if it was successful (meaning it had no
+auto-rollbacks due to ITS <code>compile()</code> call failing), then we'll merge its
+compiler state with our own so that we preserve important state details.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$className </td>
+                                <td><p>The full path of the class to sub-compile, but
+without any leading <code>\</code> global prefix. To save
+time, we assume the caller has already verified
+that it is a valid <code>LazyJsonMapper</code> class.</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyDefinitionException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\BadPropertyMapException</dt>
+                            <dd></dd>
+                                                    <dt>\LazyJsonMapper\Exception\CircularPropertyMapException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">PropertyMapCompiler.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Property/PropertyMapCompiler.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/LazyJsonMapper.html">\LazyJsonMapper</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 1st, 2017 at 21:10.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
